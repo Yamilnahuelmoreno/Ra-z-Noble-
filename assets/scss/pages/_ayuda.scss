@@ -1,0 +1,25 @@
+// ============================================================
+// PÁGINA — Ayuda
+// ============================================================
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.ayuda-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $sp-9;
+
+  @include desde($bp-lg) {
+    grid-template-columns: 1.3fr .9fr;
+  }
+}
+
+.grilla-contacto {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $sp-4;
+
+  @include desde($bp-sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

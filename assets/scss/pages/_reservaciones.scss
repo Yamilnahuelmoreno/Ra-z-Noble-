@@ -1,0 +1,32 @@
+// ============================================================
+// PÁGINA — Reservaciones
+// ============================================================
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.reserva-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $sp-8;
+
+  @include desde($bp-lg) {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.reserva-lateral {
+  @include imagen-cover(.75);
+  border-radius: $radio-md;
+
+  @include hasta($bp-lg) {
+    aspect-ratio: 1.7778;
+  }
+}
+
+.lista-info {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-4;
+  margin-top: $sp-6;
+}

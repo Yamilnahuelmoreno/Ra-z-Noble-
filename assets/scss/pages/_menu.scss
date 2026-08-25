@@ -1,0 +1,18 @@
+// ============================================================
+// PÁGINA — Menú
+// ============================================================
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.menu-intro {
+  @include contenedor($ancho-maximo-angosto);
+  text-align: center;
+  padding-bottom: $sp-7;
+}
+
+.menu-nota-final {
+  @include contenedor($ancho-maximo-angosto);
+  text-align: center;
+  border-top: 1px solid $color-borde;
+  padding-block: $sp-8 $sp-9;
+}

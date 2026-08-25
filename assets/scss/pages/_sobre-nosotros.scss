@@ -1,0 +1,25 @@
+// ============================================================
+// PÁGINA — Sobre Nosotros
+// ============================================================
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.franja-cita {
+  border-left: 2px solid $color-acento;
+  padding-left: $sp-6;
+
+  blockquote {
+    font-family: $fuente-display;
+    font-style: italic;
+    font-size: clamp(#{$fs-lg}, 2.4vw, #{$fs-xl});
+    line-height: $lh-relajado;
+  }
+
+  cite {
+    display: block;
+    margin-top: $sp-4;
+    font-style: normal;
+    font-size: $fs-sm;
+    color: $piedra;
+  }
+}
