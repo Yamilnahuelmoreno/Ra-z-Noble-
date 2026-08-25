@@ -1,0 +1,201 @@
+// ============================================================
+// MENÚ — navegación por categorías y listado de platos
+// ============================================================
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.menu-tabs {
+  position: sticky;
+  top: 5.25rem;
+  z-index: 10;
+  background: linear-gradient(180deg, rgba($tierra-oscura, .97), rgba($negro-raiz, .97));
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid $color-borde;
+  padding-block: $sp-4;
+  margin-bottom: $sp-8;
+  box-shadow: 0 16px 30px -18px rgba(0, 0, 0, .7);
+
+  &__scroll {
+    @include contenedor;
+    display: flex;
+    gap: $sp-3;
+    overflow-x: auto;
+    padding-block: $sp-1;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    mask-image: linear-gradient(to right, transparent, black 3rem, black calc(100% - 3rem), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 3rem, black calc(100% - 3rem), transparent);
+    transition: mask-image $transicion-media;
+
+    &::-webkit-scrollbar { display: none; height: 0; }
+
+    // Sin desvanecido en el extremo donde no hay más para scrollear
+    &.is-inicio {
+      mask-image: linear-gradient(to right, black, black calc(100% - 3rem), transparent);
+      -webkit-mask-image: linear-gradient(to right, black, black calc(100% - 3rem), transparent);
+    }
+
+    &.is-final {
+      mask-image: linear-gradient(to right, transparent, black 3rem, black);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 3rem, black);
+    }
+
+    &.is-inicio.is-final {
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+  }
+
+  &__boton {
+    @include reset-boton;
+    @include foco-visible;
+    flex-shrink: 0;
+    padding: $sp-3 $sp-5;
+    border: 1px solid $color-borde;
+    border-radius: $radio-pill;
+    background: rgba($crema-hueso, .02);
+    font-size: $fs-xs;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: $piedra;
+    transition: color $transicion-rapida, border-color $transicion-rapida,
+                background-color $transicion-rapida, transform $transicion-rapida,
+                box-shadow $transicion-rapida;
+
+    &:hover {
+      color: $crema-hueso;
+      border-color: rgba($bronce-noble, .6);
+      background: rgba($bronce-noble, .08);
+      transform: translateY(-1px);
+    }
+
+    &.is-activo {
+      background: linear-gradient(135deg, $bronce-noble-alto, $bronce-noble);
+      border-color: $bronce-noble;
+      color: $negro-raiz;
+      font-weight: 700;
+      box-shadow: 0 6px 16px -4px rgba($bronce-noble, .55);
+    }
+  }
+
+  // Flechas para desplazar la pista de categorías con un click,
+  // además del desvanecido y el gesto de arrastre/swipe.
+  &__flecha {
+    @include reset-boton;
+    @include foco-visible;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba($negro-raiz, .85);
+    backdrop-filter: blur(4px);
+    border: 1px solid $color-borde;
+    color: $crema-hueso;
+    cursor: pointer;
+    transition: opacity $transicion-rapida, border-color $transicion-rapida,
+                background-color $transicion-rapida, color $transicion-rapida,
+                transform $transicion-rapida;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: $color-acento;
+      color: $color-acento;
+      background: rgba($bronce-noble, .14);
+      transform: translateY(-50%) scale(1.06);
+    }
+
+    &:disabled {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &--izq { left: $sp-3; }
+    &--der { right: $sp-3; }
+
+    @include hasta($bp-sm) {
+      width: 30px;
+      height: 30px;
+
+      svg { width: 14px; height: 14px; }
+    }
+  }
+}
+
+.menu-categoria {
+  margin-bottom: $sp-9;
+  scroll-margin-top: 8rem;
+
+  &__encabezado {
+    @include flex(row, space-between, baseline, $sp-4);
+    border-bottom: 1px solid $color-borde;
+    padding-bottom: $sp-4;
+    margin-bottom: $sp-6;
+  }
+
+  &__descripcion {
+    margin-top: $sp-2;
+  }
+}
+
+.lista-platos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $sp-5 $sp-8;
+
+  @include desde($bp-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.item-plato {
+  @include flex(row, space-between, flex-start, $sp-4);
+  padding-bottom: $sp-4;
+  border-bottom: 1px dashed $color-borde;
+
+  &__info {
+    flex: 1;
+  }
+
+  &__nombre {
+    font-family: $fuente-display;
+    font-size: $fs-lg;
+    display: inline-flex;
+    align-items: center;
+    gap: $sp-2;
+  }
+
+  &__descripcion {
+    margin-top: $sp-1;
+    font-size: $fs-sm;
+    color: $piedra;
+  }
+
+  &__precio {
+    font-family: $fuente-display;
+    font-size: $fs-lg;
+    color: $color-acento;
+    white-space: nowrap;
+  }
+}
+
+.etiqueta-veg {
+  @include flex(row, center, center);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(#3f7a4f, .25);
+  color: #a8e0b6;
+  font-size: .6rem;
+}

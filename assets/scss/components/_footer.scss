@@ -1,0 +1,118 @@
+// ============================================================
+// FOOTER
+// ============================================================
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.footer {
+  background: $tierra-oscura;
+  border-top: 1px solid $color-borde;
+  padding-block: $sp-9 $sp-6;
+
+  &__grid {
+    @include contenedor;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: $sp-7;
+
+    @include hasta($bp-lg) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include hasta($bp-sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__marca {
+    max-width: 26rem;
+  }
+
+  &__descripcion {
+    margin-top: $sp-4;
+    color: $piedra;
+    font-size: $fs-sm;
+  }
+
+  &__titulo {
+    @include eyebrow;
+    margin-bottom: $sp-5;
+  }
+
+  &__lista {
+    @include flex(column, flex-start, flex-start, $sp-3);
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $crema-hueso;
+    font-size: $fs-sm;
+    @include subrayado-hover($color-acento);
+  }
+
+  &__social {
+    @include flex(row, flex-start, center, $sp-3);
+    margin-top: $sp-6;
+  }
+
+  &__social-link {
+    @include flex(row, center, center);
+    width: 38px;
+    height: 38px;
+    border: 1px solid $color-borde;
+    border-radius: 50%;
+    color: $crema-hueso;
+    text-decoration: none;
+    transition: border-color $transicion-media, color $transicion-media;
+
+    svg { width: 16px; height: 16px; }
+
+    &:hover,
+    &:focus-visible {
+      border-color: $color-acento;
+      color: $color-acento;
+    }
+  }
+
+  &__base {
+    @include contenedor;
+    @include flex(row, space-between, center, $sp-4);
+    margin-top: $sp-9;
+    padding-top: $sp-5;
+    border-top: 1px solid $color-borde;
+    font-size: $fs-xs;
+    color: $piedra;
+    flex-wrap: wrap;
+
+    a {
+      color: $piedra;
+      text-decoration: none;
+
+      &:hover { color: $color-acento; }
+    }
+  }
+
+  &__base-links {
+    @include flex(row, flex-start, center, $sp-5);
+  }
+}
+
+.horario-lista {
+  font-size: $fs-sm;
+
+  &__fila {
+    @include flex(row, space-between, center);
+    padding-block: $sp-2;
+    border-bottom: 1px dashed $color-borde;
+    gap: $sp-4;
+  }
+
+  &__dia {
+    color: $crema-hueso;
+  }
+
+  &__hora {
+    color: $piedra;
+    text-align: right;
+  }
+}

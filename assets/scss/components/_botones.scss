@@ -1,0 +1,106 @@
+// ============================================================
+// BOTONES
+// ============================================================
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+%boton-base {
+  @include flex(row, center, center, $sp-3);
+  @include foco-visible;
+  font-family: $fuente-cuerpo;
+  font-size: $fs-sm;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: $sp-4 $sp-6;
+  border-radius: $radio-pill;
+  border: 1px solid transparent;
+  transition: transform $transicion-rapida, background-color $transicion-media, color $transicion-media, border-color $transicion-media;
+  white-space: nowrap;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.boton {
+  @extend %boton-base;
+  background: $color-acento;
+  color: $negro-raiz;
+  border-color: $color-acento;
+
+  &:hover,
+  &:focus-visible {
+    background: $color-acento-alto;
+    border-color: $color-acento-alto;
+  }
+}
+
+.boton--fantasma {
+  @extend %boton-base;
+  background: transparent;
+  color: $color-texto-claro;
+  border-color: rgba($crema-hueso, .4);
+
+  &:hover,
+  &:focus-visible {
+    border-color: $color-acento;
+    color: $color-acento;
+  }
+}
+
+.boton--vino {
+  @extend %boton-base;
+  background: $color-enfasis;
+  color: $crema-hueso;
+  border-color: $color-enfasis;
+
+  &:hover,
+  &:focus-visible {
+    background: $color-enfasis-alto;
+    border-color: $color-enfasis-alto;
+  }
+}
+
+.boton--oscuro {
+  @extend %boton-base;
+  background: $negro-raiz;
+  color: $crema-hueso;
+  border-color: $negro-raiz;
+
+  &:hover,
+  &:focus-visible {
+    background: $tierra-oscura;
+  }
+}
+
+.boton--ancho {
+  width: 100%;
+}
+
+.boton--sm {
+  padding: $sp-3 $sp-5;
+  font-size: $fs-xs;
+}
+
+.enlace-flecha {
+  @include flex(row, flex-start, center, $sp-2);
+  @include foco-visible;
+  font-size: $fs-sm;
+  font-weight: 600;
+  text-decoration: none;
+  color: $color-acento;
+  letter-spacing: .03em;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    transition: transform $transicion-rapida;
+  }
+
+  &:hover svg,
+  &:focus-visible svg {
+    transform: translateX(4px);
+  }
+}

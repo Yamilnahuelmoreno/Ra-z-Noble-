@@ -1,0 +1,124 @@
+// ============================================================
+// FORMULARIOS — reservaciones y contacto
+// ============================================================
+@use 'sass:color';
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.formulario {
+  background: $tierra-oscura;
+  border: 1px solid $color-borde;
+  border-radius: $radio-md;
+  padding: $sp-7;
+
+  @include hasta($bp-sm) {
+    padding: $sp-5;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $sp-5;
+
+    @include hasta($bp-sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__grupo {
+    display: flex;
+    flex-direction: column;
+    gap: $sp-2;
+
+    &--completo {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__pie {
+    @include flex(row, space-between, center, $sp-4);
+    margin-top: $sp-6;
+    flex-wrap: wrap;
+  }
+
+  &__nota {
+    font-size: $fs-xs;
+    color: $piedra;
+    max-width: 24rem;
+  }
+}
+
+.campo {
+  &__label {
+    font-size: $fs-sm;
+    font-weight: 600;
+    letter-spacing: .02em;
+
+    .campo__opcional {
+      color: $piedra;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+  }
+
+  &__control {
+    @include foco-visible;
+    width: 100%;
+    padding: $sp-4;
+    background: $negro-raiz;
+    border: 1px solid $color-borde;
+    border-radius: $radio-sm;
+    color: $crema-hueso;
+    transition: border-color $transicion-rapida;
+
+    &::placeholder {
+      color: $piedra-oscura;
+    }
+
+    &:hover {
+      border-color: rgba($bronce-noble, .5);
+    }
+
+    &:focus {
+      border-color: $color-acento;
+    }
+  }
+
+  textarea.campo__control {
+    resize: vertical;
+    min-height: 7rem;
+  }
+
+  &__error {
+    font-size: $fs-xs;
+    color: color.adjust($vino-profundo, $lightness: 30%);
+    min-height: 1.1em;
+  }
+}
+
+.formulario__mensaje-estado {
+  margin-top: $sp-5;
+  padding: $sp-4 $sp-5;
+  border-radius: $radio-sm;
+  font-size: $fs-sm;
+  display: none;
+  align-items: center;
+  gap: $sp-3;
+
+  &.is-visible {
+    display: flex;
+  }
+
+  &--exito {
+    background: rgba(#3f7a4f, .15);
+    border: 1px solid rgba(#3f7a4f, .5);
+    color: #a8e0b6;
+  }
+
+  &--error {
+    background: rgba($vino-profundo, .18);
+    border: 1px solid rgba($vino-profundo, .6);
+    color: #f2b9c2;
+  }
+}

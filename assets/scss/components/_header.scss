@@ -1,0 +1,187 @@
+// ============================================================
+// HEADER / NAVEGACIÓN
+// ============================================================
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.header {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: $z-header;
+  padding-block: $sp-5;
+  transition: background-color $transicion-media, padding $transicion-media, box-shadow $transicion-media;
+
+  &__inner {
+    @include contenedor;
+    @include flex(row, space-between, center, $sp-5);
+  }
+
+  &.is-scrolled {
+    background: rgba($negro-raiz, .92);
+    backdrop-filter: blur(10px);
+    padding-block: $sp-3;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+    border-bottom: 1px solid $color-borde;
+
+    // El backdrop-filter crea un "containing block" para los hijos con
+    // position:fixed (como .nav en mobile), lo que rompe el overlay de
+    // pantalla completa del menú. Lo desactivamos solo en mobile, donde
+    // .nav usa position:fixed; en desktop no afecta porque .nav ahí no
+    // es fixed.
+    @include hasta($bp-lg) {
+      backdrop-filter: none;
+    }
+  }
+}
+
+.marca {
+  @include flex(row, flex-start, center, $sp-3);
+  text-decoration: none;
+  color: $color-texto-claro;
+
+  &__icono {
+    width: 34px;
+    height: 34px;
+    color: $color-acento;
+    flex-shrink: 0;
+  }
+
+  &__texto {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  &__nombre {
+    font-family: $fuente-display;
+    font-size: $fs-xl;
+    letter-spacing: .01em;
+  }
+
+  &__lema {
+    font-size: .65rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: $color-acento;
+    margin-top: $sp-1;
+  }
+}
+
+.nav {
+  @include desde($bp-lg) {
+    @include flex(row, flex-end, center, $sp-7);
+  }
+
+  @include hasta($bp-lg) {
+    position: fixed;
+    inset: 0;
+    top: 0;
+    background: $negro-raiz;
+    padding: 6.5rem $sp-6 $sp-6;
+    transform: translateX(100%);
+    transition: transform $transicion-media;
+    overflow-y: auto;
+
+    &.is-abierto {
+      transform: translateX(0);
+    }
+  }
+
+  &__lista {
+    @include flex(row, flex-start, center, $sp-6);
+
+    @include hasta($bp-lg) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $sp-5;
+    }
+  }
+
+  &__link {
+    @include foco-visible;
+    @include subrayado-hover($color-acento);
+    font-size: $fs-sm;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-decoration: none;
+    color: $color-texto-claro;
+
+    @include hasta($bp-lg) {
+      font-family: $fuente-display;
+      font-size: $fs-2xl;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    &[aria-current='page'] {
+      color: $color-acento;
+    }
+  }
+
+  &__cta {
+    @include hasta($bp-lg) {
+      margin-top: $sp-6;
+    }
+  }
+}
+
+.nav-toggle {
+  @include reset-boton;
+  @include foco-visible;
+  display: none;
+  position: relative;
+  z-index: $z-modal;
+  width: 42px;
+  height: 42px;
+  border: 1px solid $color-borde;
+  border-radius: 50%;
+
+  @include hasta($bp-lg) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__linea,
+  &__linea::before,
+  &__linea::after {
+    width: 18px;
+    height: 1.5px;
+    background: $color-texto-claro;
+    transition: transform $transicion-rapida, opacity $transicion-rapida;
+  }
+
+  &__linea {
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+    }
+
+    &::before { top: -6px; }
+    &::after { top: 6px; }
+  }
+
+  &[aria-expanded='true'] &__linea {
+    background: transparent;
+
+    &::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+.header-espaciador {
+  height: 0;
+}

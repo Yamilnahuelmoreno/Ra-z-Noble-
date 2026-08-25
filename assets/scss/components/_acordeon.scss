@@ -1,0 +1,91 @@
+// ============================================================
+// ACORDEÓN — preguntas frecuentes (Ayuda)
+// ============================================================
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.acordeon {
+  border-top: 1px solid $color-borde;
+}
+
+.acordeon-item {
+  border-bottom: 1px solid $color-borde;
+
+  &__pregunta {
+    @include reset-boton;
+    @include foco-visible;
+    width: 100%;
+    @include flex(row, space-between, center, $sp-5);
+    padding-block: $sp-5;
+    text-align: left;
+    font-family: $fuente-display;
+    font-size: $fs-lg;
+  }
+
+  &__icono {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border: 1px solid $color-borde;
+    border-radius: 50%;
+    position: relative;
+    transition: border-color $transicion-media, transform $transicion-media;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background: $color-acento;
+      transition: transform $transicion-media;
+    }
+
+    &::before {
+      width: 10px;
+      height: 1.4px;
+      transform: translate(-50%, -50%);
+    }
+
+    &::after {
+      width: 1.4px;
+      height: 10px;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__respuesta {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows $transicion-media;
+
+    & > div {
+      overflow: hidden;
+    }
+
+    p {
+      padding-bottom: $sp-5;
+      color: $piedra;
+      max-width: 60ch;
+    }
+  }
+
+  &.is-abierto {
+    .acordeon-item__respuesta {
+      grid-template-rows: 1fr;
+    }
+
+    .acordeon-item__icono {
+      border-color: $color-acento;
+
+      &::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+        opacity: 0;
+      }
+    }
+
+    .acordeon-item__pregunta {
+      color: $color-acento;
+    }
+  }
+}
