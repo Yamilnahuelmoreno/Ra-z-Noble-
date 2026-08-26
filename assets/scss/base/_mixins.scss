@@ -1,0 +1,134 @@
+// ============================================================
+// MIXINS — Raíz Noble
+// ============================================================
+@use 'variables' as *;
+
+// Media query por breakpoint mínimo
+@mixin desde($punto) {
+  @media (min-width: $punto) {
+    @content;
+  }
+}
+
+// Media query por breakpoint máximo
+@mixin hasta($punto) {
+  @media (max-width: ($punto - 1px)) {
+    @content;
+  }
+}
+
+// Contenedor centrado con ancho máximo
+@mixin contenedor($ancho: $ancho-maximo) {
+  width: 100%;
+  max-width: $ancho;
+  margin-inline: auto;
+  padding-inline: $sp-5;
+
+  @include desde($bp-lg) {
+    padding-inline: $sp-7;
+  }
+}
+
+// Flex helpers
+@mixin flex($direccion: row, $justify: flex-start, $align: stretch, $gap: 0) {
+  display: flex;
+  flex-direction: $direccion;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+}
+
+// Grid helpers
+@mixin grid($columnas: 1, $gap: $sp-5) {
+  display: grid;
+  grid-template-columns: repeat($columnas, 1fr);
+  gap: $gap;
+}
+
+// Texto eyebrow / etiqueta pequeña con tracking
+@mixin eyebrow {
+  font-family: $fuente-cuerpo;
+  font-size: $fs-xs;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: $color-acento;
+}
+
+// Reset de botón nativo
+@mixin reset-boton {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+}
+
+// Línea de foco accesible visible
+@mixin foco-visible {
+  &:focus-visible {
+    outline: 2px solid $color-acento;
+    outline-offset: 3px;
+    border-radius: $radio-sm;
+  }
+}
+
+// Cubre el contenedor padre (para overlays / imágenes de fondo)
+@mixin cubrir {
+  position: absolute;
+  inset: 0;
+}
+
+// Recorte de imagen a proporción fija
+@mixin imagen-cover($ratio: 1.3333) {
+  aspect-ratio: $ratio;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+// Subrayado animado en hover (para links de texto)
+@mixin subrayado-hover($color: $color-acento) {
+  position: relative;
+  text-decoration: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -.2em;
+    width: 100%;
+    height: 1px;
+    background: $color;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform $transicion-media;
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+// Truncar texto a n líneas
+@mixin truncar-lineas($n: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $n;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Respeta la preferencia de movimiento reducido
+@mixin movimiento-reducido {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}

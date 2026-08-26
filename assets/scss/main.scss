@@ -1,0 +1,30 @@
+// ============================================================
+// MAIN — Raíz Noble
+// Punto de entrada: importa base, componentes y páginas
+// Compilar con: sass assets/scss/main.scss assets/css/main.css
+// ============================================================
+
+// Base
+@use 'base/variables';
+@use 'base/mixins';
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/utilidades';
+
+// Componentes
+@use 'components/animaciones';
+@use 'components/header';
+@use 'components/botones';
+@use 'components/hero';
+@use 'components/tarjetas';
+@use 'components/footer';
+@use 'components/formularios';
+@use 'components/menu-lista';
+@use 'components/acordeon';
+
+// Páginas
+@use 'pages/inicio';
+@use 'pages/sobre-nosotros';
+@use 'pages/reservaciones';
+@use 'pages/ayuda';
+@use 'pages/menu';
